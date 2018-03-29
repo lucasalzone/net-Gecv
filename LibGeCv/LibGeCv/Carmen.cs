@@ -11,19 +11,19 @@ namespace GeCvClass {
 		
 		public Curriculum VisualizzaCV(Curriculum c){
 			SqlConnection conn = new SqlConnection(GetStringBuilder());
-			string sql = "SELECT Matricola FROM Curriculum " +
-						   $"WHERE Matricola='{c.Matricola}' ";
 			Curriculum result=null;
 			string Matricola = null;
 			try {
 				conn.Open();
-				SqlCommand command = new SqlCommand(sql, conn);
-				SqlDataReader sdr = command.ExecuteReader();
+				SqlCommand cmd = new SqlCommand("VisualizzaCV", conn);
+				cmd.CommandType = System.Data.CommandType.StoredProcedure;
+				cmd.Parameters.Add("@IdCv" , System.Data.SqlDbType.Int).Value=c.IDCV;
+				SqlDataReader sdr = cmd.ExecuteReader();
 				while (sdr.Read()) {
 					Matricola = sdr.GetString(0);
 				}
 				sdr.Close();
-				command.Dispose();
+				cmd.Dispose();
 				result = FindMatri(Matricola);
 			} catch (Exception e) {
 				throw e;
@@ -33,21 +33,20 @@ namespace GeCvClass {
 			return result;
 		}
 		
-
-		private int RecuperaIdCv(Curriculum c) {
+        private int RecuperaIdCv(Curriculum c) {
 			SqlConnection conn = new SqlConnection(GetStringBuilder());
-			string sql = "SELECT IdCv FROM Curriculum " +
-						   $"WHERE Matricola='{c.Matricola}'";
 			int IdCv = 0;
 			try {
 				conn.Open();
-				SqlCommand command = new SqlCommand(sql, conn);
-				SqlDataReader sdr = command.ExecuteReader();
+				SqlCommand cmd = new SqlCommand("RecuperaIdCv", conn);
+				cmd.CommandType = System.Data.CommandType.StoredProcedure;
+				cmd.Parameters.Add("@Matricola", System.Data.SqlDbType.NVarChar).Value=c.Matricola;
+                SqlDataReader sdr = cmd.ExecuteReader();
 				while (sdr.Read()) {
 					IdCv = sdr.GetInt32(0);
 				}
 				sdr.Close();
-				command.Dispose();
+				cmd.Dispose();
 			} catch (Exception e) {
 				throw e;
 			} finally {
@@ -60,23 +59,15 @@ namespace GeCvClass {
 			SqlConnection connection= new SqlConnection(GetStringBuilder());
 			List<Curriculum> result = null;
 			try{
-				StringBuilder sb = new StringBuilder();
-				sb.Append("select Matricola From Curriculum c inner join PercorsoStudi ps ");
-				sb.Append(" on c.IDcv= ps.IDcv inner join EspLav el on c.IDCV= el.IDcv ");
-				sb.Append(" inner join Competenze cs on c.IDCV = cs.Idcv where ");
-				sb.Append($" c.nome like '%{chiava}'% or c.Cognome like '%{chiava}%' or  ");
-				sb.Append($" c.email like '%{chiava}%' or c.Residenza like '%{chiava}%' or ");
-				sb.Append($" ps.Titolo like '%{chiava}%' or ps.Descrizione like '%{chiava}%' or ");
-				sb.Append($" el.Qualifica like '%{chiava}%' or el.Descrizione like '%{chiava}%' or ");
-				sb.Append($" cs.Tipo like '%{chiava}%' ;");
-				string sql = sb.ToString();
-				SqlCommand command = new SqlCommand(sql, connection);
-				SqlDataReader reader = command.ExecuteReader();
+				SqlCommand cmd = new SqlCommand("CercaParolaChiava", connection);
+				cmd.CommandType = System.Data.CommandType.StoredProcedure;
+				cmd.Parameters.Add("@parola", System.Data.SqlDbType.NVarChar).Value=chiava;
+                SqlDataReader reader = cmd.ExecuteReader();
 				while(reader.Read()){
-					Curricula.Add(FindMatri(reader.GetString(0)));
+					result.Add(FindIdCv(reader.GetInt32(0)));
 				}
 				reader.Close();
-				command.Dispose();
+				cmd.Dispose();
 				return result;
 			}catch(Exception e ){
 				throw e ;
@@ -91,18 +82,14 @@ namespace GeCvClass {
 			List<Curriculum> result = null;
 			try{
 				connection.Open();
-				StringBuilder sb = new StringBuilder();
-				sb.Append($" Select matricola from Curriculum c inner join Competenze cs on c.idcv = cs.Idcv where ");
-				sb.Append($" cs.Titolo like '%{competenza}%' ;");
-				string sql = sb.ToString();
-				SqlCommand command = new SqlCommand(sql, connection);
-				SqlDataReader reader = command.ExecuteReader();
-				result = new List<Curriculum>();
+				SqlCommand cmd = new SqlCommand("CercaLingua", connection);
+				cmd.Parameters.Add("@competenza",System.Data.SqlDbType.NVarChar).Value=competenza;
+                SqlDataReader reader = cmd.ExecuteReader();
 				while(reader.Read()){
-					result.Add(FindMatri(reader.GetString(0)));
+					result.Add(FindIdCv(reader.GetInt32(0)));
 				}
 				reader.Close();
-				command.Dispose();
+				cmd.Dispose();
 				return result;
 			}catch (Exception e ){
 				throw e ;
@@ -110,6 +97,7 @@ namespace GeCvClass {
 				connection.Dispose();
 			}
 		}
+	
 		public List<Curriculum> CercaPiuParam(string parola,int e_min,int e_max,string residenza,string lingue) {
 			throw new NotImplementedException();
 		}
