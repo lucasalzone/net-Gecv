@@ -55,5 +55,33 @@ namespace LibGeCvTest {
 
 			Assert.IsTrue(Competente.IDCV== Tester2.IDCV);
 		}
+		[TestMethod]
+		public void CercaCittà(){
+			Archivio test = new Archivio();
+			List<Curriculum> res =  test.CercaResidenza("Torino");
+			Assert.IsTrue(res.Count==16);
+		}
+		[TestMethod]
+		public void DelTest(){
+			Archivio test = new Archivio();
+			Curriculum c = new Curriculum("Florin", "Gheliuc",22,"Aaha11","ddd","Torino","ddd" );
+			c.IDCV = 4;
+			test.Del(c);
+		}
+		[TestMethod]
+		public void ModificaTest(){
+			Archivio test = new Archivio();
+			Curriculum c = new Curriculum("Florin", "Gheliuc",22,"Aaha11","ddd","Torino","ddd" );
+			Curriculum s = new Curriculum("Fede", "Marracash",22,"Aaha11","ddd","Torino","ddd" );
+			s.IDCV = 5;
+			test.Modifica(s,c);
+		}
+		[TestMethod]
+		public void CercaEtaTest(){
+			Archivio test = new Archivio();
+			
+			List<Curriculum> res = test.CercaEta(22);
+			Assert.IsTrue(res.Count ==15);
+		}
 	}
 }
