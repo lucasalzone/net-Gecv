@@ -87,16 +87,40 @@ namespace GeCvClass {
 			}
 		}
 
-		public Curriculum Modifica(Curriculum daModificare,Curriculum Modificato) {
-			throw new NotImplementedException();
-		}
-		
+		public void Modifica(Curriculum daModificare,Curriculum Modificato) {
+			try{
+				SqlParameter[] parametri = new SqlParameter[]{
+					new SqlParameter("@idcurr",daModificare.IDCV),
+					new SqlParameter("@nomeM",Modificato.Nome),
+					new SqlParameter("@cognomeM",Modificato.Cognome),
+					new SqlParameter("@etaM",Modificato.Eta),
+					new SqlParameter("@matricolaM",Modificato.Matricola),
+					new SqlParameter("@emailM",Modificato.Email),
+					new SqlParameter("@residenzaM",Modificato.Residenza),
+					new SqlParameter("@telefonoM",Modificato.Telefono)
+				};
+				ExecNoQuery(parametri,"ModificaCurriculum");
 
-		public List<Curriculum> VisualizzaCV(List<Curriculum> c) {
-			throw new NotImplementedException();
+			}catch(Exception e ){
+				throw e;
+			}
 		}
-		
+		private void ExecNoQuery(SqlParameter[] parametri,string procedure) {
+			SqlConnection connection = new SqlConnection(GetStringBuilder());
+			try {
+				connection.Open();
+				SqlCommand command = new SqlCommand(procedure,connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				command.Parameters.AddRange(parametri);
+				command.ExecuteNonQuery();
+				command.Dispose();
+			} catch(Exception e) {
+				throw e;
+			} finally {
+				connection.Dispose();
+			}
 
+		}
 		public List<Curriculum> CercaPerMatricola(string Matricola) {
 			throw new NotImplementedException();
 		}
@@ -107,12 +131,13 @@ namespace GeCvClass {
 			List<Curriculum> result = null;
 			try{
 				connection.Open();
-				string sql = $"Select Matricola from Curriculum Where Eta={eta} ;";
-				SqlCommand command = new SqlCommand(sql , connection);
+				SqlCommand command = new SqlCommand("CercaEta" , connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@eta",System.Data.SqlDbType.Int).Value=eta;
 				SqlDataReader reader = command.ExecuteReader();
 				result = new List<Curriculum>();
 				while(reader.Read()){
-					result.Add(FindMatri(reader.GetString(0)));
+					result.Add(FindIdCv(reader.GetInt32(0)));
 				}
 				reader.Close();
 				command.Dispose();
@@ -131,12 +156,13 @@ namespace GeCvClass {
 			List<Curriculum> result = null;
 			try{
 				connection.Open();
-				string sql = $"Select Matricola from Curriculum Where Residenza like '%{citta}%' ;";
-				SqlCommand command = new SqlCommand(sql , connection);
+				SqlCommand command = new SqlCommand("CercaCitta", connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@citta",System.Data.SqlDbType.NVarChar).Value=citta;
 				SqlDataReader reader = command.ExecuteReader();
 				result = new List<Curriculum>();
 				while(reader.Read()){
-					result.Add(FindMatri(reader.GetString(0)));
+					result.Add(FindIdCv(reader.GetInt32(0)));
 				}
 				reader.Close();
 				command.Dispose();
@@ -150,13 +176,17 @@ namespace GeCvClass {
 
 		
 
-
-		public List<Curriculum> CercaPiuParam(string parola,int e_min,int e_max,string residenza,string lingue) {
+		public void ModEspLav(Curriculum c ,EspLav daMod, EspLav Modificata) {
 			throw new NotImplementedException();
 		}
 
-		public List<Curriculum> CercaPiuParam(string parola,string residenza,string lingue) {
+		public void ModPerStud(Curriculum c,PercorsoStudi daMod,PercorsoStudi Modificata) {
+			throw new NotImplementedException();
+		}
+
+		public void ModComp(Curriculum c,Competenze daMod,Competenze Modificata) {
 			throw new NotImplementedException();
 		}
 	}
 }
+

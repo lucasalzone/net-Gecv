@@ -110,5 +110,12 @@ namespace GeCvClass {
 				connection.Dispose();
 			}
 		}
+		public List<Curriculum> CercaPiuParam(string parola,int e_min,int e_max,string residenza,string lingue) {
+			throw new NotImplementedException();
+		}
+
+		public List<Curriculum> CercaPiuParam(string parola,string residenza,string lingue) {
+			throw new NotImplementedException();
+		}
 	}
 }

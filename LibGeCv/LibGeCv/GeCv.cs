@@ -19,12 +19,10 @@ namespace GeCv{
 		List<Curriculum> CercaPerMatricola(string Matricola);
 		void Del(Curriculum c );
 		//Funzione visibile solo se loggati come Admin, Permette di eliminare un curriculum;
-		Curriculum Modifica(Curriculum daModificare, Curriculum Modificato );
+		void Modifica(Curriculum daModificare, Curriculum Modificato );
 		// Funzionalità che permette di modificare solo il proprio curriculum ;
 		// in caso lo user sia loggato come admin, permette di modificare anche curriculum esterni;
 		// in caso lo user sia loggato come professore, permette di modificare anche curriculum dei suoi corsisti.
-		Curriculum VisualizzaCV(Curriculum c);
-		List<Curriculum> VisualizzaCV(List<Curriculum> c);
 		// Funzionalità che permette di visualizzare una Lista di curriculum, un curriculum in particolare
 		List<Curriculum> CercaEta(int min, int max);
 		// Funzionalità che permette di cercare curriculum in un range di eta, compreso tra il min e il max
@@ -40,6 +38,9 @@ namespace GeCv{
 		// Funzionalità che permette la ricerca per tutti i parametri presenti sull'interfaccia grafica
 		List<Curriculum> CercaPiuParam(string parola, string residenza, string lingue );
 		// Funzionalità che permette la ricerca per tutti i parametri, esclusa l'età
+		void ModEspLav(Curriculum c, EspLav daMod, EspLav Modificata);
+		void ModPerStud(Curriculum c , PercorsoStudi daMod , PercorsoStudi Modificata);
+		void ModComp(Curriculum c , Competenze daMod , Competenze Modificata);
 	}
 
 	[Serializable]
@@ -160,35 +161,7 @@ namespace GeCv{
 		public void AddComp(string c){
 			competenze.Add(c);
 		}
-		public void StampaCV(){
-			Console.WriteLine("\n\n------CURRICULUM DI {0} {1}------",this.Nome,this.Cognome);
-			Console.WriteLine("Nome: {0} | Cognome: {1}", this.Nome,this.Cognome);
-			Console.WriteLine("Età: "+this.eta);
-			
-			Console.WriteLine("E-mail: "+this.email+" | Telefono: "+this.telefono);
-			Console.WriteLine("------ESPERIENZE LAVORATIVE------");
-			for(int i = 0; i < lavori.Count; i++){
-				Console.WriteLine("____________________ ",i);
-				Console.WriteLine(lavori[i]);
 
-			}
-			Console.WriteLine("------PERCORSO STUDI------");
-			for(int i = 0; i < studi.Count; i++){
-				//olConse.WriteLine("____________________ ",i);
-				Console.WriteLine(studi[i]);
-
-			}
-			Console.WriteLine("------COMPETENZE SPECIFICHE------");
-			for(int i = 0; i < _Competenze.Count; i++){
-				Console.WriteLine("____________________ ",i);
-				Console.WriteLine(_Competenze[i]);
-
-			}
-			Console.WriteLine("------COMPETENZE GENERALI------");
-			foreach(string b in competenze){
-				Console.WriteLine(b);
-			}
-		}
 		public bool Equals(Curriculum c){
 			if (this.Cognome== c.Cognome){
 				return true;
@@ -248,63 +221,7 @@ namespace GeCv{
 		public void DelCompSpec(Competenze c){
 			_Competenze.Remove(c);
 		}
-		public void modPercStud(int id, Curriculum cv){
-			Console.WriteLine("Menu : \n 1.....inizio \n 2.....fine \n 3.....Titolo \n 4.....Descrizione");
-			int k = 0;
-			k = int.Parse(LeggiInputString("Cosa vuoi modificare ?"));
-			switch (k){
-				case 1:
-					Console.WriteLine("Inserisci L'anno D'inizio ");
-					studi[id].AnnoInizio = int.Parse(Console.ReadLine());
-					break;
-				case 2:
-					Console.WriteLine("Inserisci L'anno Di fine ");
-					studi[id].AnnoFine = int.Parse(Console.ReadLine());
-					break;
-				case 3:
-					Console.WriteLine("Inserisci il Titolo ");
-					studi[id].Titolo = Console.ReadLine();
-					break;
-				case 4:
-					Console.WriteLine("Inserisci la Descrizione ");
-					studi[id].Descrizione = Console.ReadLine();  
-					break;
-			}
-			StampaCV();
-		}
 
-		public void modEspLav(int id, Curriculum cv){
-			Console.WriteLine("Menu : \n 1.....inizio \n 2.....fine \n 3.....Titolo \n 4.....Descrizione");
-			int k = 0;
-			k = int.Parse(LeggiInputString("Cosa vuoi modificare ?"));
-			switch (k){
-				case 1:
-					Console.WriteLine("Inserisci L'anno D'inizio ");
-					studi[id].AnnoInizio = int.Parse(Console.ReadLine());
-					break;
-				case 2:
-					Console.WriteLine("Inserisci L'anno Di fine ");
-					studi[id].AnnoFine = int.Parse(Console.ReadLine());
-					break;
-				case 3:
-					Console.WriteLine("Inserisci la qualifica ");
-					studi[id].Titolo = Console.ReadLine();
-					break;
-				case 4:
-					Console.WriteLine("Inserisci la Descrizione ");
-					studi[id].Descrizione = Console.ReadLine();  
-					break;
-			}
-			StampaCV();
-		}
-
-		//implementare il modifica competenze modifiche e modifiche competenze generali
-
-
-		private static string LeggiInputString(string v){
-			Console.WriteLine(v);
-			return Console.ReadLine();
-		}
 		public bool ListPerComp(int var1){
 			bool ret = false;
 			Competenze t = new Competenze(var1);
@@ -315,24 +232,7 @@ namespace GeCv{
 			}
 			return ret;
 		}
-		public void modCompSpec(int id, Curriculum cv){
-			Console.WriteLine("Menu : \n 1.....Tipo \n 2.....Livello ");
-			int k = 0;
-			Console.WriteLine("bimbo");
-			k = int.Parse(LeggiInputString("Cosa vuoi modificare ?"));
-			switch (k){
-				case 1:
-					Console.WriteLine("Inserisci Il tipo");
-					_Competenze[id].Tipo = Console.ReadLine();
-					break;
-				case 2:
-					Console.WriteLine("Inserisci Il livello ");
-					_Competenze[id] = new Competenze(_Competenze[id].Tipo , int.Parse(Console.ReadLine()));
-					break;
-					
-			}
-			StampaCV();
-		}
+
 		public bool ListCompGeneral(string var1){
 			foreach (string s1 in competenze){
 				if (s1.Contains(var1))
