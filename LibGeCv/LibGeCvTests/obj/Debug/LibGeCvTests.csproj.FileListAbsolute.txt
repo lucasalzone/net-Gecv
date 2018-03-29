@@ -1,0 +1,2 @@
+C:\Users\CORSO04\Source\Repos\net-Gecv\LibGeCv\LibGeCvTests\obj\Debug\LibGeCvTests.csprojResolveAssemblyReference.cache
+C:\Users\CORSO04\Source\Repos\net-Gecv\LibGeCv\LibGeCvTests\obj\Debug\LibGeCvTests.csproj.CoreCompileInputs.cache

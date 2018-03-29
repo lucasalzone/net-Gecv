@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
-using System.Text;
 using GeCv;
 
 namespace GeCvClass {
@@ -23,29 +22,38 @@ namespace GeCvClass {
                  command.Parameters.Add("@Email",System.Data.SqlDbType.NVarChar).Value= c.Email;
                  command.Parameters.Add("@Residenza",System.Data.SqlDbType.NVarChar).Value= c.Residenza;
                  command.Parameters.Add("@Telefono",System.Data.SqlDbType.NVarChar).Value= c.Telefono;
+              	 c.IDCV = RecuperaIdCv(c);
+				 
                  command.ExecuteNonQuery();
                  command.Dispose();
-              
-                }catch(Exception e ){
+		    }catch(Exception e ){
 				throw e ;
 			}finally{
 				connection.Dispose();
 			}
 		}
 		public void AddPerStudi(Curriculum c, PercorsoStudi p){
-			int IdCv = RecuperaIdCv(c);
+			
 			SqlConnection connection = new SqlConnection(GetStringBuilder());
 			try {
 				connection.Open();
+				int Idps = 0;
 				SqlCommand command = new SqlCommand("AddCvStudi", connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
 				command.Parameters.Add("@AnnoI", System.Data.SqlDbType.Int).Value = p.AnnoInizio;
 				command.Parameters.Add("@AnnoF", System.Data.SqlDbType.Int).Value = p.AnnoFine;
 				command.Parameters.Add("@Titolo", System.Data.SqlDbType.NVarChar).Value = p.Titolo;
 				command.Parameters.Add("@Descrizione", System.Data.SqlDbType.NVarChar).Value = p.Descrizione;
 				command.Parameters.Add("@IdCv", System.Data.SqlDbType.Int).Value = c.IDCV;
-				command.ExecuteNonQuery();
-				command.Dispose();
-				
+				SqlDataReader reader = command.ExecuteReader();
+				while(reader.Read()){
+				Idps = (int)reader.GetDecimal(0);
+				}
+				p.IDCV = c.IDCV;
+				p.IDPS = Idps;
+				reader.Close();		
+				c.AddPS(p);
+				command.Dispose();				
 			} catch (Exception e){
 				throw e;
 			} finally {
@@ -53,20 +61,28 @@ namespace GeCvClass {
 			}
 		}
 		public void AddEspLav(Curriculum c, EspLav el){
-			int IdCv = RecuperaIdCv(c);
+			
 			SqlConnection connection = new SqlConnection(GetStringBuilder());
 			try {
+				int Idel = 0;
 				connection.Open();
-				SqlCommand command = new SqlCommand("AddCv", connection);
+				SqlCommand command = new SqlCommand("AddEspLav", connection);
 				command.CommandType = System.Data.CommandType.StoredProcedure;
 				command.Parameters.Add("@AnnoI", System.Data.SqlDbType.Int).Value = el.AnnoInizio;
 				command.Parameters.Add("@AnnoF", System.Data.SqlDbType.Int).Value = el.AnnoFine;
 				command.Parameters.Add("@Qualifica", System.Data.SqlDbType.NVarChar).Value = el.Qualifica;
 				command.Parameters.Add("@Descrizione", System.Data.SqlDbType.NVarChar).Value = el.Descrizione;
 				command.Parameters.Add("@IdCv", System.Data.SqlDbType.Int).Value = c.IDCV;
-				command.ExecuteNonQuery();
+				SqlDataReader reader = command.ExecuteReader();
+				while(reader.Read()){
+				Idel = (int)reader.GetDecimal(0);
+				}
+				el.IDCV = c.IDCV;
+				el.IDEL = Idel;
+				reader.Close();
+				c.AddLav(el);
 				command.Dispose();
-				connection.Dispose();
+			
 
 			} catch (Exception e) {
 				throw e;
@@ -75,21 +91,31 @@ namespace GeCvClass {
 			}
 		}
 		public void AddCompetenze(Curriculum c, Competenze t){
-			int IdCv = RecuperaIdCv(c);
-			SqlConnection conn = new SqlConnection(GetStringBuilder());
+			
+			SqlConnection connection = new SqlConnection(GetStringBuilder());
 			try {
-				conn.Open();
-				string Sql = "INSERT INTO Competenze (Tipo, Livello, IdCv) " +
-				$"VALUES ('{t.Livello}',' {t.Livello}', {IdCv})";
-				SqlCommand command = new SqlCommand(Sql, conn);
-				if (command.ExecuteNonQuery() != 1) {
-					throw new Exception("Inserimento Competenze non avvenuto!");
+				connection.Open();
+				int Idcomp = 0;
+				SqlCommand command = new SqlCommand("AddCompetenze", connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@Tipo", System.Data.SqlDbType.NVarChar).Value = t.Tipo;
+				command.Parameters.Add("@Livello", System.Data.SqlDbType.Int).Value = t.Livello;
+				command.Parameters.Add("@IdCv", System.Data.SqlDbType.Int).Value = c.IDCV;
+				SqlDataReader reader = command.ExecuteReader();
+				while(reader.Read()){
+				Idcomp = (int)reader.GetDecimal(0);
 				}
+			    t.IDCV = c.IDCV;
+				t.IDCS = Idcomp;
+				reader.Close();
+				c.AddCompSpec(t);
 				command.Dispose();
+
+
 			} catch (Exception e) {
 				throw e;
 			} finally {
-				conn.Dispose();
+				connection.Dispose();
 			}
 		}
 		

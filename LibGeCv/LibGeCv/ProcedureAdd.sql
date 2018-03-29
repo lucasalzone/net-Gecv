@@ -22,21 +22,29 @@ CREATE PROCEDURE AddCvStudi
 	
 	as
     SET IMPLICIT_TRANSACTIONS ON;
-	INSERT INTO PercorsoStudi (AnnoI, AnnoF, Titolo, Descrizione, IdCv)
-				VALUES(@AnnoI,@AnnoF,@Titolo,@Descrizione,@IdCv)
+	
+	declare @IdControl int;
+	set @IdControl = (select IdCv from Curriculum where IdCv = @IdCv )
 
-	if @IdCv is null
+	if @IdControl is null
 		begin
 			print 'Warning! ID non trovato';
-			ROLLBACK TRANSACTION;
-			THROW 51000,'Warning! ID non trovato',@IdCv;
+            ROLLBACK TRANSACTION;
+			THROW 51000,'Warning! ID non trovato',@IdControl;
+			
 		end
 	 else 	
 		begin
-			print 'Warning! ID trovato';			 
+			print 'Warning! ID trovato';	
+			INSERT INTO PercorsoStudi (AnnoI, AnnoF, Titolo, Descrizione, IdCv )
+				VALUES(@AnnoI,@AnnoF,@Titolo,@Descrizione,@IdCv);	
+			
+			SELECT IDENT_CURRENT('PercorsoStudi') 	 
 		end
 		COMMIT TRANSACTION 
 	go
+	
+
 
 CREATE PROCEDURE AddEspLav
     @AnnoI Int, 
@@ -46,18 +54,23 @@ CREATE PROCEDURE AddEspLav
   	@IdCv Int
 as
 SET IMPLICIT_TRANSACTIONS ON;			
-INSERT INTO EspLav (AnnoI, AnnoF, Qualifica, Descrizione, IdCv) 
-			VALUES (@AnnoInizio, @AnnoFine, @Qualifica,@Descrizione,@IdCv)
-if @IdCv is null
+ 	declare @IdControl int;
+	set @IdControl = (select IdCv from Curriculum where IdCv = @IdCv )
+
+	if @IdControl is null
 		begin
 			print 'Warning! ID non trovato';
             ROLLBACK TRANSACTION;
-			THROW 51000,'Warning! ID non trovato',@IdCv;
+			THROW 51000,'Warning! ID non trovato',@IdControl;
 			
 		end
 	 else 	
 		begin
-			print 'Warning! ID trovato';			 
+			print 'Warning! ID trovato';	
+			INSERT INTO EspLav (AnnoI, AnnoF, Qualifica, Descrizione, IdCv) 
+			VALUES (@AnnoI, @AnnoF, @Qualifica,@Descrizione,@IdCv);
+
+			SELECT IDENT_CURRENT('EspLav') 		 
 		end
 		COMMIT TRANSACTION 
 	go
@@ -67,22 +80,28 @@ CREATE PROCEDURE AddCompetenze
     @Livello Int,
     @IdCv Int
 as
-INSERT INTO Competenze (Tipo, Livello, IdCv)
-				VALUES (@Tipo,@Livello,@IdCv)
-if @IdCv is null
+   SET IMPLICIT_TRANSACTIONS ON;
+					
+	declare @IdControl int;
+	set @IdControl = (select IdCv from Curriculum where IdCv = @IdCv )
+
+	if @IdControl is null
 		begin
 			print 'Warning! ID non trovato';
             ROLLBACK TRANSACTION;
-			THROW 51000,'Warning! ID non trovato',@IdCv;
+			THROW 51000,'Warning! ID non trovato',@IdControl;
 			
 		end
 	 else 	
 		begin
-			print 'Warning! ID trovato';			 
+			print 'Warning! ID trovato';	
+			INSERT INTO Competenze (Tipo, Livello, IdCv)
+						VALUES (@Tipo,@Livello,@IdCv)
+
+					SELECT IDENT_CURRENT('Competenze')			 
 		end
 		COMMIT TRANSACTION 
+	
 	go
 
-				
-				
-				
+

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Profilatura;
+
 
 namespace GeCv{
   public interface ICurriculum<Curriculum>{
@@ -353,11 +353,11 @@ namespace GeCv{
 		private string _tipo;
 		private string _livello;
 		private int idCv;
-		private int IDCV{
+		public int IDCV{
 			get{return this.idCv;}
 			set{this.idCv= value;}
 		}
-		private int IDCS{
+		public int IDCS{
 			get{return this.idCs;}
 			set{this.idCs= value;}
 		}
