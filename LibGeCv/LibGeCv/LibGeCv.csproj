@@ -51,6 +51,7 @@
   <ItemGroup>
     <Content Include="GECV.sql" />
     <Content Include="ProcedureAdd.sql" />
+    <Content Include="ProcedureFlo.sql" />
     <Content Include="SQL_Carmen.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
