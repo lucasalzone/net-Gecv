@@ -35,11 +35,11 @@ namespace GeCvClass {
 			SqlConnection connection = new SqlConnection(GetStringBuilder());
 			try{
 				connection.Open();
-
-				string sql = $"Delete Curriculum where Matricola='{c.Matricola}' ; ";
-				SqlCommand command = new SqlCommand(sql, connection);
+				SqlCommand command = new SqlCommand("DeleteCurriculum", connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@idcurr" , System.Data.SqlDbType.Int).Value=c.IDCV;
 				command.ExecuteNonQuery();
-				Curricula.Remove(c);
+				command.Dispose();
 
 			}catch(Exception e ){
 				throw e ;
@@ -47,17 +47,20 @@ namespace GeCvClass {
 				connection.Dispose();
 			}
 		}
+
 		public List<Curriculum> CercaEta(int min,int max) {
 			SqlConnection connection = new SqlConnection(GetStringBuilder());
 			List<Curriculum> result = null;
 			try{
 				connection.Open();
-				string sql  = $" Select Matricola from Curriculum where Eta between {min} and {max} ;";
-				SqlCommand command = new SqlCommand(sql , connection);
+				SqlCommand command = new SqlCommand("CercaEtaMinMax", connection);
+				command.CommandType = System.Data.CommandType.StoredProcedure;
+				command.Parameters.Add("@e_min" , System.Data.SqlDbType.Int).Value=min;
+				command.Parameters.Add("@e_max" , System.Data.SqlDbType.Int).Value=max;
 				SqlDataReader reader = command.ExecuteReader();
-				result= new List<Curriculum>();
+				
 				while(reader.Read()){
-					result.Add(FindMatri(reader.GetString(0)));
+					result.Add(FindIdCv(reader.GetInt32(0)));
 				}
 				reader.Close();
 				command.Dispose();
@@ -66,6 +69,21 @@ namespace GeCvClass {
 				throw e;
 			}finally{
 				connection.Dispose();
+			}
+		}
+
+		private Curriculum FindIdCv(int v) {
+			Curriculum result = null;
+			foreach(Curriculum c in Curricula){
+				if(c.IDCV == v){
+					result=c;
+					break;
+				}
+			}
+			if(result==null){
+				throw new  Exception("ID NON TROVATO");
+			}else{
+				return result;
 			}
 		}
 
