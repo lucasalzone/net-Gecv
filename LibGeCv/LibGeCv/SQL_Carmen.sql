@@ -4,8 +4,8 @@ AS
 SELECT Matricola FROM Curriculum WHERE IdCv=@IdCv;
 GO
 
-CREATE PROCEDURE RecuperaIdCv
-	@Matricola int
+alter PROCEDURE RecuperaIdCv
+	@Matricola Nvarchar(50)
 AS
 SELECT IdCv FROM Curriculum WHERE Matricola=@Matricola;
 GO
