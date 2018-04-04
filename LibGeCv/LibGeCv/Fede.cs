@@ -66,10 +66,15 @@ namespace GeCvClass {
 				//connection.Dispose();
 			}
 		}
-		public void AddEspLav(Curriculum c, EspLav el){
+		public void AddEspLav(LibGeCv.Curriculum c, LibGeCv.EspLav el){
 			
-			SqlConnection connection = new SqlConnection(GetStringBuilder());
+			//SqlConnection connection = new SqlConnection(GetStringBuilder());
 			try {
+				using (var db = new GECVEntities()) {
+				db.AddEspLav(el.AnnoI,el.AnnoF,el.Qualifica,el.Descrizione,c.IdCv);
+				db.SaveChanges();
+				}
+				
 			/*
 				int Idel = 0;
 				connection.Open();
@@ -94,13 +99,17 @@ namespace GeCvClass {
 			} catch (Exception e) {
 				throw e;
 			} finally {
-				connection.Dispose();
+				//connection.Dispose();
 			}
 		}
-		public void AddCompetenze(Curriculum c, Competenze t){
+		public void AddCompetenze(LibGeCv.Curriculum c, LibGeCv.Competenze t){
 			
-			SqlConnection connection = new SqlConnection(GetStringBuilder());
+			//SqlConnection connection = new SqlConnection(GetStringBuilder());
 			try {
+				using (var db = new GECVEntities()) {
+				db.AddCompetenze(t.Tipo,t.Livello,c.IdCv);
+				db.SaveChanges();
+				}
 			/*
 				connection.Open();
 				int Idcomp = 0;
@@ -123,7 +132,7 @@ namespace GeCvClass {
 			} catch (Exception e) {
 				throw e;
 			} finally {
-				connection.Dispose();
+				//connection.Dispose();
 			}
 		}
 		
