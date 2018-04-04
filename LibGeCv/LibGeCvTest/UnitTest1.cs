@@ -17,8 +17,8 @@ namespace LibGeCvTest {
 			Curriculum Tester = new Curriculum("Fezio","Marras",21,"AD554","justoxion@gmail.com","392234","Torino");
 			arch.Add(Tester);
 			int id = Tester.IDCV;
-			//List<Curriculum> Albo = new List<Curriculum>();
-   			//Assert.IsNotNull(Albo);
+			List<Curriculum> Albo = new List<Curriculum>();
+   			Assert.IsNotNull(Albo);
 		
 		}
 
@@ -65,7 +65,7 @@ namespace LibGeCvTest {
 		public void DelTest(){
 			Archivio test = new Archivio();
 			Curriculum c = new Curriculum("Florin", "Gheliuc",22,"Aaha11","ddd","Torino","ddd" );
-			c.IDCV = 9;
+			c.IDCV = 4;
 			test.Del(c);
 		}
 		[TestMethod]
@@ -79,10 +79,9 @@ namespace LibGeCvTest {
 		[TestMethod]
 		public void CercaEtaTest(){
 			Archivio test = new Archivio();
-			Curriculum c = new Curriculum("Florin", "Gheliuc",22,"Aaha11","ddd","Torino","ddd" );
-			test.Add(c);
+			
 			List<Curriculum> res = test.CercaEta(22);
-			Assert.IsTrue(res.Count ==1);
+			Assert.IsTrue(res.Count ==15);
 		}
         [TestMethod]
         public void CercaParolaChiavaTest(){
