@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using GeCv;
+using LibGeCv;
 
 namespace GeCvClass {
 	public partial class Archivio: ICurriculum <Curriculum> {

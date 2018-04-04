@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5229a7b154424423838dedca1f6bda46" Name="Diagram1">
+        <EntityTypeShape EntityType="GECVModel.Competenze" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GECVModel.Curriculum" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GECVModel.EspLav" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="GECVModel.PercorsoStudi" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="GECVModel.FK__Competenze__IdCv__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="GECVModel.FK__EspLav__IdCv__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="GECVModel.FK__PercorsoSt__IdCv__25869641" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

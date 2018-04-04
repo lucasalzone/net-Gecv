@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GECVModelStoreContainer" CdmEntityContainer="GECVEntities">
+    <EntitySetMapping Name="Competenze">
+      <EntityTypeMapping TypeName="GECVModel.Competenze">
+        <MappingFragment StoreEntitySet="Competenze">
+          <ScalarProperty Name="IdCs" ColumnName="IdCs" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Livello" ColumnName="Livello" />
+          <ScalarProperty Name="IdCv" ColumnName="IdCv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Curriculum">
+      <EntityTypeMapping TypeName="GECVModel.Curriculum">
+        <MappingFragment StoreEntitySet="Curriculum">
+          <ScalarProperty Name="IdCv" ColumnName="IdCv" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Cognome" ColumnName="Cognome" />
+          <ScalarProperty Name="Eta" ColumnName="Eta" />
+          <ScalarProperty Name="Matricola" ColumnName="Matricola" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Residenza" ColumnName="Residenza" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EspLav">
+      <EntityTypeMapping TypeName="GECVModel.EspLav">
+        <MappingFragment StoreEntitySet="EspLav">
+          <ScalarProperty Name="IdEl" ColumnName="IdEl" />
+          <ScalarProperty Name="AnnoI" ColumnName="AnnoI" />
+          <ScalarProperty Name="AnnoF" ColumnName="AnnoF" />
+          <ScalarProperty Name="Qualifica" ColumnName="Qualifica" />
+          <ScalarProperty Name="Descrizione" ColumnName="Descrizione" />
+          <ScalarProperty Name="IdCv" ColumnName="IdCv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PercorsoStudi">
+      <EntityTypeMapping TypeName="GECVModel.PercorsoStudi">
+        <MappingFragment StoreEntitySet="PercorsoStudi">
+          <ScalarProperty Name="IdPs" ColumnName="IdPs" />
+          <ScalarProperty Name="AnnoI" ColumnName="AnnoI" />
+          <ScalarProperty Name="AnnoF" ColumnName="AnnoF" />
+          <ScalarProperty Name="Titolo" ColumnName="Titolo" />
+          <ScalarProperty Name="Descrizione" ColumnName="Descrizione" />
+          <ScalarProperty Name="IdCv" ColumnName="IdCv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AddCompetenze" FunctionName="GECVModel.Store.AddCompetenze" />
+    <FunctionImportMapping FunctionImportName="AddCv" FunctionName="GECVModel.Store.AddCv" />
+    <FunctionImportMapping FunctionImportName="AddCvStudi" FunctionName="GECVModel.Store.AddCvStudi" />
+    <FunctionImportMapping FunctionImportName="AddEspLav" FunctionName="GECVModel.Store.AddEspLav" />
+  </EntityContainerMapping>
+</Mapping>
