@@ -30,8 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,17 +51,70 @@
   <ItemGroup>
     <Compile Include="Carmen.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Competenze.cs">
+      <DependentUpon>EDMFede.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Curriculum.cs">
+      <DependentUpon>EDMFede.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMFede.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EDMFede.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMFede.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EDMFede.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMFede.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EDMFede.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EspLav.cs">
+      <DependentUpon>EDMFede.tt</DependentUpon>
+    </Compile>
     <Compile Include="Fede.cs" />
     <Compile Include="Florin.cs" />
     <Compile Include="GeCv.cs" />
     <Compile Include="LibGestioneDB.cs" />
+    <Compile Include="PercorsoStudi.cs">
+      <DependentUpon>EDMFede.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EDMFede.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EDMFede.Context.cs</LastGenOutput>
+      <DependentUpon>EDMFede.edmx</DependentUpon>
+    </Content>
+    <Content Include="EDMFede.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EDMFede.edmx</DependentUpon>
+      <LastGenOutput>EDMFede.cs</LastGenOutput>
+    </Content>
     <Content Include="GECV.sql" />
     <Content Include="ProcedureAdd.sql" />
     <Content Include="ProcedureFlo.sql" />
     <Content Include="SQL_Carmen.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="EDMFede.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EDMFede.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="EDMFede.edmx.diagram">
+      <DependentUpon>EDMFede.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

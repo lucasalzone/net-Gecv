@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GECVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Competenze">
+    <Key>
+      <PropertyRef Name="IdCs" />
+    </Key>
+    <Property Name="IdCs" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Livello" Type="Int32" />
+    <Property Name="IdCv" Type="Int32" />
+    <NavigationProperty Name="Curriculum" Relationship="Self.FK__Competenze__IdCv__2B3F6F97" FromRole="Competenze" ToRole="Curriculum" />
+  </EntityType>
+  <EntityType Name="Curriculum">
+    <Key>
+      <PropertyRef Name="IdCv" />
+    </Key>
+    <Property Name="IdCv" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Cognome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Eta" Type="Int32" />
+    <Property Name="Matricola" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Residenza" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Competenze" Relationship="Self.FK__Competenze__IdCv__2B3F6F97" FromRole="Curriculum" ToRole="Competenze" />
+    <NavigationProperty Name="EspLav" Relationship="Self.FK__EspLav__IdCv__286302EC" FromRole="Curriculum" ToRole="EspLav" />
+    <NavigationProperty Name="PercorsoStudi" Relationship="Self.FK__PercorsoSt__IdCv__25869641" FromRole="Curriculum" ToRole="PercorsoStudi" />
+  </EntityType>
+  <EntityType Name="EspLav">
+    <Key>
+      <PropertyRef Name="IdEl" />
+    </Key>
+    <Property Name="IdEl" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AnnoI" Type="Int32" />
+    <Property Name="AnnoF" Type="Int32" />
+    <Property Name="Qualifica" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Descrizione" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IdCv" Type="Int32" />
+    <NavigationProperty Name="Curriculum" Relationship="Self.FK__EspLav__IdCv__286302EC" FromRole="EspLav" ToRole="Curriculum" />
+  </EntityType>
+  <EntityType Name="PercorsoStudi">
+    <Key>
+      <PropertyRef Name="IdPs" />
+    </Key>
+    <Property Name="IdPs" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AnnoI" Type="Int32" />
+    <Property Name="AnnoF" Type="Int32" />
+    <Property Name="Titolo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Descrizione" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IdCv" Type="Int32" />
+    <NavigationProperty Name="Curriculum" Relationship="Self.FK__PercorsoSt__IdCv__25869641" FromRole="PercorsoStudi" ToRole="Curriculum" />
+  </EntityType>
+  <Association Name="FK__Competenze__IdCv__2B3F6F97">
+    <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="0..1" />
+    <End Role="Competenze" Type="Self.Competenze" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Curriculum">
+        <PropertyRef Name="IdCv" />
+      </Principal>
+      <Dependent Role="Competenze">
+        <PropertyRef Name="IdCv" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EspLav__IdCv__286302EC">
+    <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="0..1" />
+    <End Role="EspLav" Type="Self.EspLav" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Curriculum">
+        <PropertyRef Name="IdCv" />
+      </Principal>
+      <Dependent Role="EspLav">
+        <PropertyRef Name="IdCv" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PercorsoSt__IdCv__25869641">
+    <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="0..1" />
+    <End Role="PercorsoStudi" Type="Self.PercorsoStudi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Curriculum">
+        <PropertyRef Name="IdCv" />
+      </Principal>
+      <Dependent Role="PercorsoStudi">
+        <PropertyRef Name="IdCv" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GECVEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Competenze" EntityType="Self.Competenze" />
+    <EntitySet Name="Curriculum" EntityType="Self.Curriculum" />
+    <EntitySet Name="EspLav" EntityType="Self.EspLav" />
+    <EntitySet Name="PercorsoStudi" EntityType="Self.PercorsoStudi" />
+    <AssociationSet Name="FK__Competenze__IdCv__2B3F6F97" Association="Self.FK__Competenze__IdCv__2B3F6F97">
+      <End Role="Curriculum" EntitySet="Curriculum" />
+      <End Role="Competenze" EntitySet="Competenze" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EspLav__IdCv__286302EC" Association="Self.FK__EspLav__IdCv__286302EC">
+      <End Role="Curriculum" EntitySet="Curriculum" />
+      <End Role="EspLav" EntitySet="EspLav" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PercorsoSt__IdCv__25869641" Association="Self.FK__PercorsoSt__IdCv__25869641">
+      <End Role="Curriculum" EntitySet="Curriculum" />
+      <End Role="PercorsoStudi" EntitySet="PercorsoStudi" />
+    </AssociationSet>
+    <FunctionImport Name="AddCompetenze" ReturnType="Collection(Decimal)">
+      <Parameter Name="Tipo" Mode="In" Type="String" />
+      <Parameter Name="Livello" Mode="In" Type="Int32" />
+      <Parameter Name="IdCv" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddCv">
+      <Parameter Name="Nome" Mode="In" Type="String" />
+      <Parameter Name="Cognome" Mode="In" Type="String" />
+      <Parameter Name="Eta" Mode="In" Type="Int32" />
+      <Parameter Name="Matricola" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Residenza" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddCvStudi" ReturnType="Collection(Decimal)">
+      <Parameter Name="AnnoI" Mode="In" Type="Int32" />
+      <Parameter Name="AnnoF" Mode="In" Type="Int32" />
+      <Parameter Name="Titolo" Mode="In" Type="String" />
+      <Parameter Name="Descrizione" Mode="In" Type="String" />
+      <Parameter Name="IdCv" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddEspLav" ReturnType="Collection(Decimal)">
+      <Parameter Name="AnnoI" Mode="In" Type="Int32" />
+      <Parameter Name="AnnoF" Mode="In" Type="Int32" />
+      <Parameter Name="Qualifica" Mode="In" Type="String" />
+      <Parameter Name="Descrizione" Mode="In" Type="String" />
+      <Parameter Name="IdCv" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

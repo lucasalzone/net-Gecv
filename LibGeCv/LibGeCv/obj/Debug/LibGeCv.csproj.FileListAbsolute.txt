@@ -10,3 +10,16 @@ C:\Users\CORSO02\Source\Repos\net-Gecv2\LibGeCv\LibGeCv\obj\Debug\LibGeCv.csproj
 C:\Users\CORSO02\Source\Repos\net-Gecv2\LibGeCv\LibGeCv\obj\Debug\LibGeCv.csproj.CoreCompileInputs.cache
 C:\Users\CORSO02\Source\Repos\net-Gecv2\LibGeCv\LibGeCv\obj\Debug\LibGeCv.dll
 C:\Users\CORSO02\Source\Repos\net-Gecv2\LibGeCv\LibGeCv\obj\Debug\LibGeCv.pdb
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCv\bin\Debug\LibGeCv.dll.config
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCv\bin\Debug\LibGeCv.dll
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCv\bin\Debug\LibGeCv.pdb
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCv\bin\Debug\EntityFramework.dll
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCv\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCv\bin\Debug\EntityFramework.xml
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCv\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCv\bin\Debug\it\EntityFramework.resources.dll
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCv\obj\Debug\LibGeCv.csprojResolveAssemblyReference.cache
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCv\obj\Debug\LibGeCv.csproj.CoreCompileInputs.cache
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCv\obj\Debug\LibGeCv.csproj.CopyComplete
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCv\obj\Debug\LibGeCv.dll
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCv\obj\Debug\LibGeCv.pdb

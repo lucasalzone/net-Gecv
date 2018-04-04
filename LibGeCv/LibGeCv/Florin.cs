@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using GeCv;
+using LibGeCv;
 
 namespace GeCvClass {
 	public partial class Archivio : ICurriculum<Curriculum> {
@@ -37,7 +38,7 @@ namespace GeCvClass {
 				connection.Open();
 				SqlCommand command = new SqlCommand("DeleteCurriculum", connection);
 				command.CommandType = System.Data.CommandType.StoredProcedure;
-				command.Parameters.Add("@idcurr" , System.Data.SqlDbType.Int).Value=c.IDCV;
+				command.Parameters.Add("@idcurr" , System.Data.SqlDbType.Int).Value=c.IdCv;
 				command.ExecuteNonQuery();
 				command.Dispose();
 
@@ -75,7 +76,7 @@ namespace GeCvClass {
 		private Curriculum FindIdCv(int v) {
 			Curriculum result = null;
 			foreach(Curriculum c in Curricula){
-				if(c.IDCV == v){
+				if(c.IdCv == v){
 					result=c;
 					break;
 				}
@@ -90,7 +91,7 @@ namespace GeCvClass {
 		public void Modifica(Curriculum daModificare,Curriculum Modificato) {
 			try{
 				SqlParameter[] parametri = new SqlParameter[]{
-					new SqlParameter("@idcurr",daModificare.IDCV),
+					new SqlParameter("@idcurr",daModificare.IdCv),
 					new SqlParameter("@nomeM",Modificato.Nome),
 					new SqlParameter("@cognomeM",Modificato.Cognome),
 					new SqlParameter("@etaM",Modificato.Eta),

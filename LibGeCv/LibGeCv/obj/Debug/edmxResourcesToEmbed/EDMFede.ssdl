@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GECVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Competenze">
+    <Key>
+      <PropertyRef Name="IdCs" />
+    </Key>
+    <Property Name="IdCs" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tipo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Livello" Type="int" />
+    <Property Name="IdCv" Type="int" />
+  </EntityType>
+  <EntityType Name="Curriculum">
+    <Key>
+      <PropertyRef Name="IdCv" />
+    </Key>
+    <Property Name="IdCv" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar" MaxLength="50" />
+    <Property Name="Cognome" Type="nvarchar" MaxLength="50" />
+    <Property Name="Eta" Type="int" />
+    <Property Name="Matricola" Type="nvarchar" MaxLength="10" />
+    <Property Name="Email" Type="nvarchar" MaxLength="30" />
+    <Property Name="Residenza" Type="nvarchar" MaxLength="100" />
+    <Property Name="Telefono" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="EspLav">
+    <Key>
+      <PropertyRef Name="IdEl" />
+    </Key>
+    <Property Name="IdEl" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AnnoI" Type="int" />
+    <Property Name="AnnoF" Type="int" />
+    <Property Name="Qualifica" Type="nvarchar" MaxLength="50" />
+    <Property Name="Descrizione" Type="nvarchar" MaxLength="200" />
+    <Property Name="IdCv" Type="int" />
+  </EntityType>
+  <EntityType Name="PercorsoStudi">
+    <Key>
+      <PropertyRef Name="IdPs" />
+    </Key>
+    <Property Name="IdPs" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AnnoI" Type="int" />
+    <Property Name="AnnoF" Type="int" />
+    <Property Name="Titolo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Descrizione" Type="nvarchar" MaxLength="200" />
+    <Property Name="IdCv" Type="int" />
+  </EntityType>
+  <Association Name="FK__Competenze__IdCv__2B3F6F97">
+    <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="0..1" />
+    <End Role="Competenze" Type="Self.Competenze" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Curriculum">
+        <PropertyRef Name="IdCv" />
+      </Principal>
+      <Dependent Role="Competenze">
+        <PropertyRef Name="IdCv" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EspLav__IdCv__286302EC">
+    <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="0..1" />
+    <End Role="EspLav" Type="Self.EspLav" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Curriculum">
+        <PropertyRef Name="IdCv" />
+      </Principal>
+      <Dependent Role="EspLav">
+        <PropertyRef Name="IdCv" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PercorsoSt__IdCv__25869641">
+    <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="0..1" />
+    <End Role="PercorsoStudi" Type="Self.PercorsoStudi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Curriculum">
+        <PropertyRef Name="IdCv" />
+      </Principal>
+      <Dependent Role="PercorsoStudi">
+        <PropertyRef Name="IdCv" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="AddCompetenze" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Tipo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Livello" Type="int" Mode="In" />
+    <Parameter Name="IdCv" Type="int" Mode="In" />
+  </Function>
+  <Function Name="AddCv" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Nome" Type="varchar" Mode="In" />
+    <Parameter Name="Cognome" Type="varchar" Mode="In" />
+    <Parameter Name="Eta" Type="int" Mode="In" />
+    <Parameter Name="Matricola" Type="varchar" Mode="In" />
+    <Parameter Name="Email" Type="varchar" Mode="In" />
+    <Parameter Name="Residenza" Type="varchar" Mode="In" />
+    <Parameter Name="Telefono" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="AddCvStudi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="AnnoI" Type="int" Mode="In" />
+    <Parameter Name="AnnoF" Type="int" Mode="In" />
+    <Parameter Name="Titolo" Type="varchar" Mode="In" />
+    <Parameter Name="Descrizione" Type="varchar" Mode="In" />
+    <Parameter Name="IdCv" Type="int" Mode="In" />
+  </Function>
+  <Function Name="AddEspLav" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="AnnoI" Type="int" Mode="In" />
+    <Parameter Name="AnnoF" Type="int" Mode="In" />
+    <Parameter Name="Qualifica" Type="nvarchar" Mode="In" />
+    <Parameter Name="Descrizione" Type="nvarchar" Mode="In" />
+    <Parameter Name="IdCv" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="GECVModelStoreContainer">
+    <EntitySet Name="Competenze" EntityType="Self.Competenze" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Curriculum" EntityType="Self.Curriculum" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EspLav" EntityType="Self.EspLav" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PercorsoStudi" EntityType="Self.PercorsoStudi" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Competenze__IdCv__2B3F6F97" Association="Self.FK__Competenze__IdCv__2B3F6F97">
+      <End Role="Curriculum" EntitySet="Curriculum" />
+      <End Role="Competenze" EntitySet="Competenze" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EspLav__IdCv__286302EC" Association="Self.FK__EspLav__IdCv__286302EC">
+      <End Role="Curriculum" EntitySet="Curriculum" />
+      <End Role="EspLav" EntitySet="EspLav" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PercorsoSt__IdCv__25869641" Association="Self.FK__PercorsoSt__IdCv__25869641">
+      <End Role="Curriculum" EntitySet="Curriculum" />
+      <End Role="PercorsoStudi" EntitySet="PercorsoStudi" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
