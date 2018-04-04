@@ -9,31 +9,7 @@ using GeCv;
 namespace GeCvClass {
 	public partial class Archivio: ICurriculum <Curriculum> {
 		
-		public Curriculum VisualizzaCV(Curriculum c){
-			SqlConnection conn = new SqlConnection(GetStringBuilder());
-			Curriculum result=null;
-			string Matricola = null;
-			try {
-				conn.Open();
-				SqlCommand cmd = new SqlCommand("VisualizzaCV", conn);
-				cmd.CommandType = System.Data.CommandType.StoredProcedure;
-				cmd.Parameters.Add("@IdCv" , System.Data.SqlDbType.Int).Value=c.IDCV;
-				SqlDataReader sdr = cmd.ExecuteReader();
-				while (sdr.Read()) {
-					Matricola = sdr.GetString(0);
-				}
-				sdr.Close();
-				cmd.Dispose();
-				result = FindMatri(Matricola);
-			} catch (Exception e) {
-				throw e;
-			} finally {
-				conn.Dispose();
-			}
-			return result;
-		}
-		
-        private int RecuperaIdCv(Curriculum c) {
+		private int RecuperaIdCv(Curriculum c) {
 			SqlConnection conn = new SqlConnection(GetStringBuilder());
 			int IdCv = 0;
 			try {

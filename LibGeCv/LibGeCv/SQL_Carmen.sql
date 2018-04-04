@@ -1,11 +1,5 @@
-﻿CREATE PROCEDURE VisualizzaCV
-	@IdCv int
-AS
-SELECT Matricola FROM Curriculum WHERE IdCv=@IdCv;
-GO
-
-CREATE PROCEDURE RecuperaIdCv
-	@Matricola int
+﻿CREATE PROCEDURE RecuperaIdCv
+	@Matricola nvarchar(10)
 AS
 SELECT IdCv FROM Curriculum WHERE Matricola=@Matricola;
 GO
