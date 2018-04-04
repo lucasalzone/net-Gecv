@@ -36,3 +36,7 @@ C:\Users\CORSO02\Source\Repos\net-Gecv2\LibGeCv\LibGeCvTest\obj\Debug\LibGeCvTes
 C:\Users\CORSO02\Source\Repos\net-Gecv2\LibGeCv\LibGeCvTest\obj\Debug\LibGeCvTest.csproj.CopyComplete
 C:\Users\CORSO02\Source\Repos\net-Gecv2\LibGeCv\LibGeCvTest\obj\Debug\LibGeCvTest.dll
 C:\Users\CORSO02\Source\Repos\net-Gecv2\LibGeCv\LibGeCvTest\obj\Debug\LibGeCvTest.pdb
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCvTest\obj\Debug\LibGeCvTest.csprojResolveAssemblyReference.cache
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCvTest\obj\Debug\LibGeCvTest.csproj.CoreCompileInputs.cache
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCvTest\obj\Debug\LibGeCvTest.dll
+C:\Users\CORSO04\source\repos\net-Gecv2\LibGeCv\LibGeCvTest\obj\Debug\LibGeCvTest.pdb

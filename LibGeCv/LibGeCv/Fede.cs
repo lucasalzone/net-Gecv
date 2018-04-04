@@ -5,14 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using GeCv;
+using LibGeCv;
+
+
 
 namespace GeCvClass {
 
 	public partial class Archivio : ICurriculum<Curriculum> {
-		public void Add(Curriculum c) {
-			SqlConnection connection = new SqlConnection(GetStringBuilder());
+		public void Add(LibGeCv.Curriculum c) {
+			
 			try{
-     	      	 connection.Open();
+				using (var db = new GECVEntities()) {
+				db.AddCv(c.Nome,c.Cognome,c.Eta,c.Matricola,c.Email,c.Residenza,c.Telefono);
+				db.SaveChanges();
+				}
+				/* connection.Open();
                  SqlCommand command = new SqlCommand("AddCv",connection);
                  command.CommandType = System.Data.CommandType.StoredProcedure;
                  command.Parameters.Add("@Nome",System.Data.SqlDbType.NVarChar).Value= c.Nome;
@@ -22,21 +29,20 @@ namespace GeCvClass {
                  command.Parameters.Add("@Email",System.Data.SqlDbType.NVarChar).Value= c.Email;
                  command.Parameters.Add("@Residenza",System.Data.SqlDbType.NVarChar).Value= c.Residenza;
                  command.Parameters.Add("@Telefono",System.Data.SqlDbType.NVarChar).Value= c.Telefono;
-              	 c.IDCV = RecuperaIdCv(c);
-				 
+              	 c.IDCV = RecuperaIdCv(c);				 
                  command.ExecuteNonQuery();
-                 command.Dispose();
+                 command.Dispose();*/
 		    }catch(Exception e ){
 				throw e ;
-			}finally{
-				connection.Dispose();
 			}
 		}
-		public void AddPerStudi(Curriculum c, PercorsoStudi p){
-			
-			SqlConnection connection = new SqlConnection(GetStringBuilder());
+		public void AddPerStudi(LibGeCv.Curriculum c, LibGeCv.PercorsoStudi p){			
 			try {
-				connection.Open();
+				using (var db = new GECVEntities()) {
+				db.AddCvStudi(p.AnnoI,p.AnnoF,p.Titolo,p.Descrizione,c.IdCv);
+				db.SaveChanges();
+				}
+				/*connection.Open();
 				int Idps = 0;
 				SqlCommand command = new SqlCommand("AddCvStudi", connection);
 				command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -53,17 +59,23 @@ namespace GeCvClass {
 				p.IDPS = Idps;
 				reader.Close();		
 				c.AddPS(p);
-				command.Dispose();				
+				command.Dispose();*/			
 			} catch (Exception e){
 				throw e;
 			} finally {
-				connection.Dispose();
+				//connection.Dispose();
 			}
 		}
-		public void AddEspLav(Curriculum c, EspLav el){
+		public void AddEspLav(LibGeCv.Curriculum c, LibGeCv.EspLav el){
 			
-			SqlConnection connection = new SqlConnection(GetStringBuilder());
+			//SqlConnection connection = new SqlConnection(GetStringBuilder());
 			try {
+				using (var db = new GECVEntities()) {
+				db.AddEspLav(el.AnnoI,el.AnnoF,el.Qualifica,el.Descrizione,c.IdCv);
+				db.SaveChanges();
+				}
+				
+			/*
 				int Idel = 0;
 				connection.Open();
 				SqlCommand command = new SqlCommand("AddEspLav", connection);
@@ -77,23 +89,28 @@ namespace GeCvClass {
 				while(reader.Read()){
 				Idel = (int)reader.GetDecimal(0);
 				}
-				el.IDCV = c.IDCV;
-				el.IDEL = Idel;
+				el.IdCv = c.IdCv;
+				el.IdCv = Idel;
 				reader.Close();
-				c.AddLav(el);
+				//c.AddLav(el);
 				command.Dispose();
-			
+			*/
 
 			} catch (Exception e) {
 				throw e;
 			} finally {
-				connection.Dispose();
+				//connection.Dispose();
 			}
 		}
-		public void AddCompetenze(Curriculum c, Competenze t){
+		public void AddCompetenze(LibGeCv.Curriculum c, LibGeCv.Competenze t){
 			
-			SqlConnection connection = new SqlConnection(GetStringBuilder());
+			//SqlConnection connection = new SqlConnection(GetStringBuilder());
 			try {
+				using (var db = new GECVEntities()) {
+				db.AddCompetenze(t.Tipo,t.Livello,c.IdCv);
+				db.SaveChanges();
+				}
+			/*
 				connection.Open();
 				int Idcomp = 0;
 				SqlCommand command = new SqlCommand("AddCompetenze", connection);
@@ -111,11 +128,11 @@ namespace GeCvClass {
 				c.AddCompSpec(t);
 				command.Dispose();
 
-
+			*/
 			} catch (Exception e) {
 				throw e;
 			} finally {
-				connection.Dispose();
+				//connection.Dispose();
 			}
 		}
 		
