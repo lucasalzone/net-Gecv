@@ -1,17 +1,21 @@
-﻿CREATE PROCEDURE AddCv
-    @Nome VARCHAR(50), 
-  	@Cognome VARCHAR(50),
+﻿ALTER PROCEDURE AddCv
+    @Nome NVARCHAR(50), 
+  	@Cognome NVARCHAR(50),
 	@Eta Int, 
-  	@Matricola VARCHAR(50), 
-  	@Email VARCHAR(50),
-	@Residenza VARCHAR(50), 
-  	@Telefono VARCHAR(50)
+  	@Matricola NVARCHAR(50), 
+  	@Email NVARCHAR(50),
+	@Residenza NVARCHAR(50), 
+  	@Telefono NVARCHAR(50)
 	as
     SET IMPLICIT_TRANSACTIONS ON;
 	INSERT INTO Curriculum(Nome,Cognome ,Eta ,Matricola,Email,Residenza ,Telefono)
 				VALUES(@Nome,@Cognome,@Eta,@Matricola,@Email,@Residenza,@Telefono)
     COMMIT TRANSACTION 
 	go
+
+exec AddCv 'Flo','bb',12,'333aa','4141ss','milano','11131';
+
+go
 
 CREATE PROCEDURE AddCvStudi
     @AnnoI Int, 
