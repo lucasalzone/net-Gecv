@@ -83,5 +83,19 @@ namespace LibGeCvTest {
 			List<Curriculum> res = test.CercaEta(22);
 			Assert.IsTrue(res.Count ==15);
 		}
+        [TestMethod]
+        public void CercaParolaChiavaTest(){
+            Archivio CercaP = new Archivio();
+            List<Curriculum> ElencoCv = new List<Curriculum>();
+            ElencoCv = CercaP.CercaParolaChiava("C#");
+            Assert.IsTrue(ElencoCv!=null);
+        }
+         [TestMethod]
+        public void CercaLinguaTest(){
+            Archivio CercaP = new Archivio();
+            List<Curriculum> ElencoCv = new List<Curriculum>();
+            ElencoCv = CercaP.CercaLingua("Inglese");
+            Assert.IsTrue(ElencoCv!=null);
+        }        
 	}
 }
