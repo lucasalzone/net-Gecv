@@ -131,5 +131,114 @@ namespace LibGeCv
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("AddEspLav", annoIParameter, annoFParameter, qualificaParameter, descrizioneParameter, idCvParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> CercaCitta(string citta)
+        {
+            var cittaParameter = citta != null ?
+                new ObjectParameter("citta", citta) :
+                new ObjectParameter("citta", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CercaCitta", cittaParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> CercaEta(Nullable<int> eta)
+        {
+            var etaParameter = eta.HasValue ?
+                new ObjectParameter("eta", eta) :
+                new ObjectParameter("eta", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CercaEta", etaParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> CercaLingua(string competenza)
+        {
+            var competenzaParameter = competenza != null ?
+                new ObjectParameter("competenza", competenza) :
+                new ObjectParameter("competenza", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CercaLingua", competenzaParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> CercaMatricola(string matri)
+        {
+            var matriParameter = matri != null ?
+                new ObjectParameter("matri", matri) :
+                new ObjectParameter("matri", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CercaMatricola", matriParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> CercaParolaChiava(string parola)
+        {
+            var parolaParameter = parola != null ?
+                new ObjectParameter("parola", parola) :
+                new ObjectParameter("parola", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CercaParolaChiava", parolaParameter);
+        }
+    
+        public virtual int DeleteCurriculum(Nullable<int> idcurr)
+        {
+            var idcurrParameter = idcurr.HasValue ?
+                new ObjectParameter("idcurr", idcurr) :
+                new ObjectParameter("idcurr", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteCurriculum", idcurrParameter);
+        }
+    
+        public virtual int ModificaCurriculum(Nullable<int> idcurr, string nomeM, string cognomeM, Nullable<int> etaM, string matricolaM, string emailM, string residenzaM, string telefonoM)
+        {
+            var idcurrParameter = idcurr.HasValue ?
+                new ObjectParameter("idcurr", idcurr) :
+                new ObjectParameter("idcurr", typeof(int));
+    
+            var nomeMParameter = nomeM != null ?
+                new ObjectParameter("nomeM", nomeM) :
+                new ObjectParameter("nomeM", typeof(string));
+    
+            var cognomeMParameter = cognomeM != null ?
+                new ObjectParameter("cognomeM", cognomeM) :
+                new ObjectParameter("cognomeM", typeof(string));
+    
+            var etaMParameter = etaM.HasValue ?
+                new ObjectParameter("etaM", etaM) :
+                new ObjectParameter("etaM", typeof(int));
+    
+            var matricolaMParameter = matricolaM != null ?
+                new ObjectParameter("matricolaM", matricolaM) :
+                new ObjectParameter("matricolaM", typeof(string));
+    
+            var emailMParameter = emailM != null ?
+                new ObjectParameter("emailM", emailM) :
+                new ObjectParameter("emailM", typeof(string));
+    
+            var residenzaMParameter = residenzaM != null ?
+                new ObjectParameter("residenzaM", residenzaM) :
+                new ObjectParameter("residenzaM", typeof(string));
+    
+            var telefonoMParameter = telefonoM != null ?
+                new ObjectParameter("telefonoM", telefonoM) :
+                new ObjectParameter("telefonoM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ModificaCurriculum", idcurrParameter, nomeMParameter, cognomeMParameter, etaMParameter, matricolaMParameter, emailMParameter, residenzaMParameter, telefonoMParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> RecuperaIdCv(string matricola)
+        {
+            var matricolaParameter = matricola != null ?
+                new ObjectParameter("Matricola", matricola) :
+                new ObjectParameter("Matricola", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("RecuperaIdCv", matricolaParameter);
+        }
+    
+        public virtual ObjectResult<string> VisualizzaCV(Nullable<int> idCv)
+        {
+            var idCvParameter = idCv.HasValue ?
+                new ObjectParameter("IdCv", idCv) :
+                new ObjectParameter("IdCv", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("VisualizzaCV", idCvParameter);
+        }
     }
 }

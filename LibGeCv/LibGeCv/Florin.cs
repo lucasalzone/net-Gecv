@@ -33,6 +33,7 @@ namespace GeCvClass {
 			return result;
 		}
 		public void Del(Curriculum c) {
+		/*
 			SqlConnection connection = new SqlConnection(GetStringBuilder());
 			try{
 				connection.Open();
@@ -46,6 +47,12 @@ namespace GeCvClass {
 				throw e ;
 			}finally{
 				connection.Dispose();
+			}
+		*/
+			using( var db = new GECVEntities()){
+				if(db.DeleteCurriculum(c.IdCv)!=1){
+					throw new Exception("Curriculum non trovato! errore in Delete!");
+				}
 			}
 		}
 
@@ -89,6 +96,7 @@ namespace GeCvClass {
 		}
 
 		public void Modifica(Curriculum daModificare,Curriculum Modificato) {
+		/*
 			try{
 				SqlParameter[] parametri = new SqlParameter[]{
 					new SqlParameter("@idcurr",daModificare.IdCv),
@@ -104,6 +112,10 @@ namespace GeCvClass {
 
 			}catch(Exception e ){
 				throw e;
+			}
+			*/
+			using (var db = new GECVEntities()){
+				//int test = db.ModificaCurriculum(daModificare.IdCv,Modificato.Nome,Modificato.Cognome,Modificato)
 			}
 		}
 		private void ExecNoQuery(SqlParameter[] parametri,string procedure) {
