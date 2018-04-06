@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GECVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GECVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Competenze">
           <Key>
             <PropertyRef Name="IdCs" />
@@ -49,7 +49,7 @@
           <Property Name="Descrizione" Type="nvarchar" MaxLength="200" />
           <Property Name="IdCv" Type="int" />
         </EntityType>
-        <Association Name="FK__Competenze__IdCv__2B3F6F97">
+        <Association Name="FK__Competenze__IdCv__412EB0B6">
           <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="0..1" />
           <End Role="Competenze" Type="Self.Competenze" Multiplicity="*" />
           <ReferentialConstraint>
@@ -61,7 +61,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EspLav__IdCv__286302EC">
+        <Association Name="FK__EspLav__IdCv__3E52440B">
           <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="0..1" />
           <End Role="EspLav" Type="Self.EspLav" Multiplicity="*" />
           <ReferentialConstraint>
@@ -73,7 +73,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PercorsoSt__IdCv__25869641">
+        <Association Name="FK__PercorsoSt__IdCv__3B75D760">
           <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="0..1" />
           <End Role="PercorsoStudi" Type="Self.PercorsoStudi" Multiplicity="*" />
           <ReferentialConstraint>
@@ -91,13 +91,13 @@
           <Parameter Name="IdCv" Type="int" Mode="In" />
         </Function>
         <Function Name="AddCv" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Nome" Type="varchar" Mode="In" />
-          <Parameter Name="Cognome" Type="varchar" Mode="In" />
+          <Parameter Name="Nome" Type="nvarchar" Mode="In" />
+          <Parameter Name="Cognome" Type="nvarchar" Mode="In" />
           <Parameter Name="Eta" Type="int" Mode="In" />
-          <Parameter Name="Matricola" Type="varchar" Mode="In" />
-          <Parameter Name="Email" Type="varchar" Mode="In" />
-          <Parameter Name="Residenza" Type="varchar" Mode="In" />
-          <Parameter Name="Telefono" Type="varchar" Mode="In" />
+          <Parameter Name="Matricola" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Residenza" Type="nvarchar" Mode="In" />
+          <Parameter Name="Telefono" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="AddCvStudi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="AnnoI" Type="int" Mode="In" />
@@ -113,26 +113,59 @@
           <Parameter Name="Descrizione" Type="nvarchar" Mode="In" />
           <Parameter Name="IdCv" Type="int" Mode="In" />
         </Function>
+        <Function Name="CercaCitta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="citta" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="CercaEta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="eta" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CercaLingua" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="competenza" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="CercaMatricola" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="matri" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="CercaParolaChiava" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="parola" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="DeleteCurriculum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idcurr" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ModificaCurriculum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idcurr" Type="int" Mode="In" />
+          <Parameter Name="nomeM" Type="nvarchar" Mode="In" />
+          <Parameter Name="cognomeM" Type="nvarchar" Mode="In" />
+          <Parameter Name="etaM" Type="int" Mode="In" />
+          <Parameter Name="matricolaM" Type="nvarchar" Mode="In" />
+          <Parameter Name="emailM" Type="nvarchar" Mode="In" />
+          <Parameter Name="residenzaM" Type="nvarchar" Mode="In" />
+          <Parameter Name="telefonoM" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="RecuperaIdCv" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Matricola" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="VisualizzaCV" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCv" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="GECVModelStoreContainer">
           <EntitySet Name="Competenze" EntityType="Self.Competenze" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Curriculum" EntityType="Self.Curriculum" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EspLav" EntityType="Self.EspLav" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PercorsoStudi" EntityType="Self.PercorsoStudi" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Competenze__IdCv__2B3F6F97" Association="Self.FK__Competenze__IdCv__2B3F6F97">
+          <AssociationSet Name="FK__Competenze__IdCv__412EB0B6" Association="Self.FK__Competenze__IdCv__412EB0B6">
             <End Role="Curriculum" EntitySet="Curriculum" />
             <End Role="Competenze" EntitySet="Competenze" />
           </AssociationSet>
-          <AssociationSet Name="FK__EspLav__IdCv__286302EC" Association="Self.FK__EspLav__IdCv__286302EC">
+          <AssociationSet Name="FK__EspLav__IdCv__3E52440B" Association="Self.FK__EspLav__IdCv__3E52440B">
             <End Role="Curriculum" EntitySet="Curriculum" />
             <End Role="EspLav" EntitySet="EspLav" />
           </AssociationSet>
-          <AssociationSet Name="FK__PercorsoSt__IdCv__25869641" Association="Self.FK__PercorsoSt__IdCv__25869641">
+          <AssociationSet Name="FK__PercorsoSt__IdCv__3B75D760" Association="Self.FK__PercorsoSt__IdCv__3B75D760">
             <End Role="Curriculum" EntitySet="Curriculum" />
             <End Role="PercorsoStudi" EntitySet="PercorsoStudi" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GECVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -267,6 +300,40 @@
             <Parameter Name="Descrizione" Mode="In" Type="String" />
             <Parameter Name="IdCv" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="CercaCitta" ReturnType="Collection(Int32)">
+            <Parameter Name="citta" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CercaEta" ReturnType="Collection(Int32)">
+            <Parameter Name="eta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CercaLingua" ReturnType="Collection(Int32)">
+            <Parameter Name="competenza" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CercaMatricola" ReturnType="Collection(Int32)">
+            <Parameter Name="matri" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CercaParolaChiava" ReturnType="Collection(Int32)">
+            <Parameter Name="parola" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteCurriculum">
+            <Parameter Name="idcurr" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ModificaCurriculum">
+            <Parameter Name="idcurr" Mode="In" Type="Int32" />
+            <Parameter Name="nomeM" Mode="In" Type="String" />
+            <Parameter Name="cognomeM" Mode="In" Type="String" />
+            <Parameter Name="etaM" Mode="In" Type="Int32" />
+            <Parameter Name="matricolaM" Mode="In" Type="String" />
+            <Parameter Name="emailM" Mode="In" Type="String" />
+            <Parameter Name="residenzaM" Mode="In" Type="String" />
+            <Parameter Name="telefonoM" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="RecuperaIdCv" ReturnType="Collection(Int32)">
+            <Parameter Name="Matricola" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="VisualizzaCV" ReturnType="Collection(String)">
+            <Parameter Name="IdCv" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -326,6 +393,15 @@
           <FunctionImportMapping FunctionImportName="AddCv" FunctionName="GECVModel.Store.AddCv" />
           <FunctionImportMapping FunctionImportName="AddCvStudi" FunctionName="GECVModel.Store.AddCvStudi" />
           <FunctionImportMapping FunctionImportName="AddEspLav" FunctionName="GECVModel.Store.AddEspLav" />
+          <FunctionImportMapping FunctionImportName="CercaCitta" FunctionName="GECVModel.Store.CercaCitta" />
+          <FunctionImportMapping FunctionImportName="CercaEta" FunctionName="GECVModel.Store.CercaEta" />
+          <FunctionImportMapping FunctionImportName="CercaLingua" FunctionName="GECVModel.Store.CercaLingua" />
+          <FunctionImportMapping FunctionImportName="CercaMatricola" FunctionName="GECVModel.Store.CercaMatricola" />
+          <FunctionImportMapping FunctionImportName="CercaParolaChiava" FunctionName="GECVModel.Store.CercaParolaChiava" />
+          <FunctionImportMapping FunctionImportName="DeleteCurriculum" FunctionName="GECVModel.Store.DeleteCurriculum" />
+          <FunctionImportMapping FunctionImportName="ModificaCurriculum" FunctionName="GECVModel.Store.ModificaCurriculum" />
+          <FunctionImportMapping FunctionImportName="RecuperaIdCv" FunctionName="GECVModel.Store.RecuperaIdCv" />
+          <FunctionImportMapping FunctionImportName="VisualizzaCV" FunctionName="GECVModel.Store.VisualizzaCV" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
